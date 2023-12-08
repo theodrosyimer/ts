@@ -1,0 +1,5 @@
+{
+  "extends": [
+    "@thyi/eslint-config/typescript"
+  ]
+}

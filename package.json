@@ -1,0 +1,30 @@
+{
+  "name": "typescript",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "exports": "./lib",
+  "types": "lib",
+  "eslintConfig": {
+    "root": true
+  },
+  "scripts": {
+    "start": "TS_NODE_PROJECT=\"tsconfig.json\" node --loader ts-node/esm src/index.ts",
+    "startCommonJs": "ts-node src/index.ts",
+    "dev": "tsc --watch --noEmit",
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "Theodros Yimer",
+  "license": "MIT",
+  "dependencies": {
+    "ts-node": "^10.7.0"
+  },
+  "module": "index.ts",
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
