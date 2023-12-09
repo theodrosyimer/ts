@@ -1,5 +1,9 @@
 {
   "extends": [
     "@thyi/eslint-config/typescript"
-  ]
+  ],
+  "rules": {
+    // your rules
+    "@typescript-eslint/no-unused-vars": "off"
+  }
 }
