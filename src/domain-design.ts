@@ -24,4 +24,6 @@ type Rank =
 type Card = `${Rank} of ${Suit}`
 
 const validCard: Card = 'Three of Hearts'
+
+// @ts-expect-error testing invalid card
 const invalidCard: Card = 'Three of Heart'
