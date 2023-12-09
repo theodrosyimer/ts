@@ -1,5 +1,5 @@
 function printOutProperties<T extends Record<any, unknown>>(
-  obj: T
+  obj: T,
   // filter: string[]
 ) {
   const toPrint = []
