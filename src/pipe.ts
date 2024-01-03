@@ -10,10 +10,10 @@ const pipe =
 // Handle asynchronous AND synchronous functions
 const pipeP =
   <T extends (...args: any) => any>(...fns: T[]) =>
-  (param: unknown | Promise<unknown>) =>
+  (param: Promise<unknown>) =>
     fns.reduce(
       (result, fn) => (result.then && result.then(fn)) || fn(result),
-      param
+      param,
     )
 
 // Order of execution is reversed, same as composition, point-free style
