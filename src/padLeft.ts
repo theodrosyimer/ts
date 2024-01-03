@@ -41,9 +41,9 @@ function padRight2(textToModify: string, repeat: number, stringToAdd?: string) {
   return `${textToModify}${separator(repeat, stringToAdd)}`
 }
 
-function padLeftOrRight(leftOrRight: LeftOrRight) {
-  if (leftOrRight === 'left') return padLeft2
-  return padRight2
+function padLeftOrRight(leftOrRight: LeftOrRight, ...args: PadParams) {
+  if (leftOrRight === 'left') return padLeft2(...args)
+  return padRight2(...args)
 }
 
 const appFactory1 =
@@ -53,10 +53,10 @@ const appFactory1 =
     actionFn(actionOptions)(...actionFnArguments)
 
 const padL = appFactory1<typeof padLeftOrRight, LeftOrRight, PadParams>(
-  padLeftOrRight
+  padLeftOrRight,
 )('left')
 const padR = appFactory1<typeof padLeftOrRight, LeftOrRight, PadParams>(
-  padLeftOrRight
+  padLeftOrRight,
 )('right')
 
 // const padL = padder('left')
