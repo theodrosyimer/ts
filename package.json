@@ -3,28 +3,24 @@
   "version": "1.0.0",
   "description": "",
   "type": "module",
-  "exports": "./lib",
-  "types": "lib",
+  "module": "index.ts",
+  "exports": "./dist",
+  "types": "dist",
   "eslintConfig": {
     "root": true
   },
   "scripts": {
-    "start": "TS_NODE_PROJECT=\"tsconfig.json\" node --loader ts-node/esm src/index.ts",
-    "startCommonJs": "ts-node src/index.ts",
-    "dev": "tsc --watch --noEmit",
-    "build": "tsc"
+    "build": "tsc --tsconfig tsconfig.json",
+    "dev": "tsx watch --noEmit --tsconfig tsconfig.json",
+    "start": "tsx --tsconfig tsconfig.json",
+    "typecheck": "tsc --noEmit --tsconfig tsconfig.json"
   },
   "keywords": [],
   "author": "Theodros Yimer",
   "license": "MIT",
-  "dependencies": {
-    "ts-node": "^10.7.0"
-  },
-  "module": "index.ts",
   "devDependencies": {
-    "bun-types": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
+    "bun-types": "latest",
+    "tsx": "^4.6.2",
+    "typescript": "^5.3.3"
   }
 }
