@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 // Don' use enums
 export const shapes = {
   circle: 'circle',
@@ -21,6 +22,6 @@ export const shapes2 = {
 type Shape2 = keyof typeof shapes2
 
 const resolveShape2 = <T extends Shape>(_shape: Shape2): (typeof shapes2)[T] =>
-  ({} as any)
+  ({}) as any
 
 const something = resolveShape2('square') // auto-completes to "circle" and "square"
