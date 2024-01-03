@@ -24,7 +24,7 @@ const isPromise = <T extends Promise<T>>(p: T) => {
 }
 
 const returnsPromise = <T extends (...args: any) => Promise<any> | any>(
-  fn: T
+  fn: T,
 ) => {
   if (
     fn?.constructor.name === 'AsyncFunction' ||
