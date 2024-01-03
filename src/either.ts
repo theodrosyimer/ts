@@ -3,9 +3,9 @@ import { maybeNullishOr } from './randomizer.js'
 const Right = <
   T,
   U extends (args: T) => unknown,
-  V extends (args: T) => unknown
+  V extends (args: T) => unknown,
 >(
-  x: T
+  x: T,
 ) => ({
   chain: (f: U) => f(x),
   map: (f: U) => Right(f(x)),
@@ -16,9 +16,9 @@ const Right = <
 const Left = <
   T,
   U extends (args: T) => unknown,
-  V extends (args: T) => unknown
+  V extends (args: T) => unknown,
 >(
-  x: T
+  x: T,
 ) => ({
   chain: (_f: U) => Left(x),
   map: (f: U) => Left(f(x)),
@@ -45,11 +45,13 @@ export const tryCatchAsync = async <T>(fn: () => Promise<T>) => {
 }
 
 const rej = async (): Promise<string> =>
-  new Promise((_, r) => r('Hello from rejected myPromise'))
+  new Promise((_, r) => {
+    r(new Error('Hello from rejected myPromise'))
+  })
 
 fromNullable(maybeNullishOr('Im a value')).fold(
   (e) => e,
-  (e) => e
+  (e) => e,
 ) /*?*/
 
 // fromNullable(maybeNull()).inspect()
@@ -59,6 +61,6 @@ const failedPRomise = await tryCatchAsync(rej)
 console.log(
   failedPRomise.fold(
     (e) => `Failure: ${e}`,
-    (s) => `Success: ${s}`
-  )
+    (s) => `Success: ${s}`,
+  ),
 )
