@@ -1,7 +1,11 @@
 // source: [How to declare a function that throws an error in Typescript - Stack Overflow](https://stackoverflow.com/a/74012773)
 class ValidationError extends Error {
-  constructor(readonly _message: string) {
-    super(_message)
+  constructor(readonly description: string) {
+    super(description)
+
+    Object.setPrototypeOf(this, new.target.prototype)
+
+    Error.captureStackTrace(this)
   }
 
   static isInstance(err: unknown): err is ValidationError {
