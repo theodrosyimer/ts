@@ -1,3 +1,7 @@
+/*
+Works with vite.js
+*/
+
 function assertInstanceOf<T>(
   value: any,
   expectedClass: new () => T,
@@ -19,5 +23,5 @@ main.textContent += ' world!'
 
 // the code will be tree-shaken to:
 document.body.insertAdjacentHTML('beforeend', '<h1>Hello</h1>')
-const main = document.querySelector('h1')
-main.textContent += ' world!'
+const main2 = document.querySelector('h1')
+main2.textContent += ' world!'
