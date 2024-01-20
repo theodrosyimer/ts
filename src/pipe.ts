@@ -12,10 +12,7 @@ const pipe =
 const pipeP =
   <T extends (...args: any) => unknown>(...fns: T[]) =>
   (param: Promise<unknown>) =>
-    fns.reduce(
-      (result, fn) => (result.then && result.then(fn)) || fn(result),
-      param,
-    )
+    fns.reduce((result, fn) => result.then(fn) || fn(result), param)
 
 // Order of execution is right to left
 const compose =
@@ -23,10 +20,10 @@ const compose =
   (param: unknown) =>
     fns.reduceRight((result, fn) => fn(result), param)
 
-function compose2<T extends(...args: any) => unknown>(...fns: T[]) {
+function compose2<T extends (...args: any) => unknown>(...fns: T[]) {
   return pipe(...fns.reverse())
 }
-function pipe2<T extends(...args: any) => unknown>(...fns: T[]) {
+function pipe2<T extends (...args: any) => unknown>(...fns: T[]) {
   return (result: unknown) => {
     for (const fn of fns) {
       result = fn(result)
