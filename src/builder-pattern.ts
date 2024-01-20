@@ -26,28 +26,28 @@ interface Generator<
   TPromptOptions extends Record<string, string> = Record<
     string,
     never
-  > /* = {} // not good to use empty object literal */
+  > /* = {} // not good to use empty object literal */,
 > {
   prompt<TKey extends string>(
     key: TKey,
-    options: TextPrompOptions
+    options: TextPrompOptions,
   ): Generator<TPromptOptions & Record<TKey, string>>
   prompt<TKey extends string>(
     key: TKey,
-    options: BooleanTextPrompOptions
+    options: BooleanTextPrompOptions,
   ): Generator<TPromptOptions & Record<TKey, boolean>>
   prompt<TKey extends string>(
     key: TKey,
-    options: NumberTextPrompOptions
+    options: NumberTextPrompOptions,
   ): Generator<TPromptOptions & Record<TKey, number>>
   ensureDir: (
-    dir: string | ((opts: TPromptOptions) => string)
+    dir: string | ((opts: TPromptOptions) => string),
   ) => Generator<TPromptOptions>
   createFile: (
-    filename: string | ((opts: TPromptOptions) => string)
+    filename: string | ((opts: TPromptOptions) => string),
   ) => Generator<TPromptOptions>
   cd: (
-    dir: string | ((opts: TPromptOptions) => string)
+    dir: string | ((opts: TPromptOptions) => string),
   ) => Generator<TPromptOptions>
 }
 
@@ -68,8 +68,8 @@ const packageJsontemplate = createTemplate<{
       dependencies: {},
     },
     null,
-    2
-  )
+    2,
+  ),
 )
 
 const newPkg = createGenerator('new-pkg')
