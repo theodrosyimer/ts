@@ -57,7 +57,7 @@ const createHexCode = (str: string): HexCode => {
 const test = createHexCode('#333')
 const isAssignableString: string = test // yes anything that is HexCode is still technically a string.
 
-// @ts-expect-error
+// @ts-expect-error - this is not a valid hex code
 const isAssignableHexCode: HexCode = 'standard string' // error
 const isAssignableHexCode2: HexCode = test // works
 
