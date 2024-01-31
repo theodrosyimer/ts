@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 type Foo<T extends string> = T extends `${infer Prefix}Bar` ? Prefix : never
 
 //  You could even contrain the generic so that it can never be never.
