@@ -47,7 +47,6 @@ class MyClass {
     console.log('MyClass')
   }
 }
-globalThis.MyClass = MyClass
 
 globalThis.myGlobalObject = { foo: 'bar' }
 
