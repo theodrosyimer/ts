@@ -1,11 +1,11 @@
 /**
- * @see {@link [A better way to use 3rd-part types (Extract & Exclude) - YouTube](https://www.youtube.com/watch?v=L8LSY27kp0I&t=115s&ab_channel=AndrewBurgess)}
+ * @see {@link [A better way to use 3rd-party types (Extract & Exclude) - YouTube](https://www.youtube.com/watch?v=L8LSY27kp0I&t=115s&ab_channel=AndrewBurgess)}
  * @param array
  * @param type
  */
 function filterByType<T extends { type: string }, U extends T['type']>(
   array: T[],
-  type: U
+  type: U,
 ) {
   type R = Extract<T, { type: U }>
   return array.filter((item): item is R => item.type === type)
