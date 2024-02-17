@@ -46,8 +46,10 @@ declare global {
 process.env.MY_ENV // string
 
 // In a `.d.ts` file
-interface ProcessEnv {
-  MY_ENV: string
+declare namespace NodeJS {
+  interface ProcessEnv {
+    MY_ENV: string
+  }
 }
 
 // ///////////////////////////////////////////
