@@ -7,7 +7,7 @@ export const shapes = {
 
 type Shape = keyof typeof shapes
 
-const resolveShape = (_shape: Shape) => {}
+const resolveShape = (_shape: Shape) => ({})
 
 resolveShape('circle') // auto-completes to "circle" and "square"
 
