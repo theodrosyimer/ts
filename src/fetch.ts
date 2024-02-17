@@ -34,4 +34,5 @@ const getUser = createAPIMethod<
   url: '/user',
 })
 
+// @ts-expect-error - The input is not a string
 getUser({ id: 123 }) // All type safe!
