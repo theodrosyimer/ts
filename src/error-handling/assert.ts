@@ -1,8 +1,21 @@
-// Using assertions functions nice to remove the lying type assertions
+// Using assertions functions, nice to remove the lying type assertions
 function assert(condition: boolean, message: string): asserts condition {
   if (!condition) {
     throw new Error(message)
   }
+}
+
+function assert2(
+  condition: boolean,
+  message?: string | (() => string),
+): asserts condition {
+  if (condition) {
+    return
+  }
+  const givenMessage: string | undefined =
+    typeof message === 'function' ? message() : message
+
+  throw new Error(givenMessage)
 }
 
 const x = 1
