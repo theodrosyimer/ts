@@ -1,4 +1,4 @@
-import { KeysOf } from './utility-types.js'
+import { type KeysOf } from './utility-types.js'
 
 const Log = {
   reset: '\x1b[0m',
@@ -51,3 +51,4 @@ export const log = (color: Color, text: unknown) => {
 // usage:
 log('fg.red', 'My text is red')
 log('bg.cyan', 'My background is cyan')
+log('bg.black', ' My background is black')
