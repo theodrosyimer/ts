@@ -3,7 +3,7 @@ export const compose = (...functions: Array<(...args: unknown[]) => unknown>) =>
     (acc, fn) =>
       (...args: Parameters<typeof fn>) =>
         acc(fn(...args)),
-    x => x
+    (x) => x,
   )
 
 // Order of execution is reversed, same as composition, point-free style

@@ -1,5 +1,5 @@
-import { fail } from './promises.js'
-import { maybeNullishOr } from './randomizer.js'
+import { fail } from '../promises.js'
+import { maybeNullishOr } from '../randomizer.js'
 
 class Either {
   Right<T>(x: T) {
