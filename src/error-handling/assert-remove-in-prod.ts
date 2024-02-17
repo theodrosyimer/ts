@@ -6,7 +6,7 @@ function assertInstanceOf<T>(
   value: any,
   expectedClass: new () => T,
 ): asserts value is T {
-  // this is the import part!
+  // this is the important part!
   if (import.meta.env.PROD) return
   if (!(value instanceof expectedClass)) {
     throw new Error(
