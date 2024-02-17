@@ -49,7 +49,7 @@ function foo2(arg: string) {
       // do something
       break
     default:
-      // this code should never execute, so cras the program if it does
+      // this code should never execute, so crash the program if it does
       throw new Error('Invalid argument')
   }
 }
