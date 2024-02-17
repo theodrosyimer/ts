@@ -36,7 +36,7 @@ export function toBinary(n: number): number {
   }
 
   function createBinaryMap({ nthPower }: { nthPower: number }) {
-    const binaryMap: Map<number, number> = new Map()
+    const binaryMap = new Map<number, number>()
 
     for (let index = nthPower; index > 0; index--) {
       binaryMap.set(2 ** index, 0)
