@@ -12,7 +12,6 @@ type IsPromise<T> = T extends (...args: any) => Promise<any> ? true : false
 
 const isPromise = <T extends Promise<T>>(p: T) => {
   if (
-    p !== null &&
     typeof p === 'object' &&
     typeof p.then === 'function' &&
     typeof p.catch === 'function'
@@ -23,11 +22,11 @@ const isPromise = <T extends Promise<T>>(p: T) => {
   return false
 }
 
-const returnsPromise = <T extends (...args: any) => Promise<any> | any>(
+const returnsPromise = <T extends (...args: any) => Promise<unknown> | any>(
   fn: T,
 ) => {
   if (
-    fn?.constructor.name === 'AsyncFunction' ||
+    fn.constructor.name === 'AsyncFunction' ||
     (typeof fn === 'function' && isPromise(fn()))
   ) {
     console.log('✅ Function returns promise')
