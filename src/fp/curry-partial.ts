@@ -28,10 +28,10 @@ type BinaryFunctionOnString = BinaryFunction<string>
 
 const saySomethingToSomeone: BinaryFunctionOnString = (
   message: string,
-  name: string | string[]
+  name: string | string[],
 ): string | string[] => {
   if (Array.isArray(name)) {
-    return name.map(n => `${message} ${n}`)
+    return name.map((n) => `${message} ${n}`)
   }
   return `${message} ${name}`
 }
