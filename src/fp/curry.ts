@@ -1,9 +1,20 @@
-/** Curry: Unary to unary function */
-type intToIntCurry = (x: number) => (y: number) => number
-const add: intToIntCurry = (x: number) => (y: number) => x + y
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint
+type Currying<T extends unknown, R, Args extends unknown[] = []> = T extends [
+  infer Head,
+]
+  ? (...args: [...Args, Head]) => R
+  : T extends [infer Head, ...infer Tail]
+    ? ((...args: [...Args, Head]) => Currying<Tail, R>) &
+        Currying<Tail, R, [...Args, Head]>
+    : () => R
 
-const addOne = add(1)
+declare function currying<T extends unknown[], R>(
+  fn: (...args: T) => R,
+): Currying<T, R>
 
-addOne(1) //?
-addOne(6) //?
-addOne(7) //?
+function add(x: number, y: number) {
+  return x + y
+}
+
+const addCurried = currying(add)
+const add1 = addCurried(1)
