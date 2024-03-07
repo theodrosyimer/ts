@@ -22,7 +22,7 @@ const x = 1
 const y = 2
 
 try {
-  assert(x > y, 'You are a fool!')
+  assert(x < y, 'You are a fool!')
 } catch (error) {
   if (error instanceof Error) {
     console.log(error.message)
@@ -38,6 +38,9 @@ function assertIsNonNullish<T>(
   }
 }
 
+function isNotDefined<Value>(value: Value | undefined) {
+  return value !== undefined
+}
 const root = document.querySelector('#root')
 assertIsNonNullish(root, 'Expects root to be Element type')
 
