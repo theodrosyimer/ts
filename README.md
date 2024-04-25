@@ -1,15 +1,9 @@
-# typescript
+# TypeScript
 
-To install dependencies:
+## Motivation
 
-```bash
-bun install
-```
+In 2021, i started to learn TypeScript and created this directory where i experiment with it and nom i'm learning more advanced stuff.
 
-To run:
+This a little rough around the edges and was not intended to be shared but here it is.
 
-```bash
-bun run index.ts
-```
-
-This project was created using `bun init` in bun v1.0.2. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+I hope that it helps someone who is learning it.
