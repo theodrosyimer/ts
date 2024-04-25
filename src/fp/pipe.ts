@@ -31,4 +31,5 @@ function pipe2<T extends (...args: any) => unknown>(...fns: T[]) {
     return result
   }
 }
+
 export {}
