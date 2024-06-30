@@ -3,24 +3,24 @@
 type TypeName<T> = T extends string
   ? 'string'
   : T extends number
-  ? 'number'
-  : T extends boolean
-  ? 'boolean'
-  : T extends undefined
-  ? 'undefined'
-  : T extends symbol
-  ? 'symbol'
-  : T extends bigint
-  ? 'bigint'
-  : T extends (...args: any) => unknown
-  ? 'function'
-  : T extends Array<unknown>
-  ? 'array'
-  : T extends null
-  ? 'null'
-  : T extends Date
-  ? 'date'
-  : object
+    ? 'number'
+    : T extends boolean
+      ? 'boolean'
+      : T extends undefined
+        ? 'undefined'
+        : T extends symbol
+          ? 'symbol'
+          : T extends bigint
+            ? 'bigint'
+            : T extends (...args: any) => unknown
+              ? 'function'
+              : T extends Array<unknown>
+                ? 'array'
+                : T extends null
+                  ? 'null'
+                  : T extends Date
+                    ? 'date'
+                    : object
 
 export const getTypeName = <T>(value: T): TypeName<T> => {
   if (value === null) return 'null' as TypeName<T>
