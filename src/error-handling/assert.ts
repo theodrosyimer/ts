@@ -18,8 +18,9 @@ function assert2(
   throw new Error(givenMessage)
 }
 
-const x = 1
-const y = 2
+const a = 2
+const x = 1 * a
+const y = 2 * a
 
 try {
   assert(x < y, 'You are a fool!')
