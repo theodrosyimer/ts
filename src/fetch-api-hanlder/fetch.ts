@@ -5,15 +5,49 @@ export const post = async (url: string, input: Record<string, string>) =>
   fetch(url, {
     method: 'POST',
     body: JSON.stringify(input),
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer token',
+    },
+  })
+
+export const put = async (url: string, input: Record<string, string>) =>
+  fetch(url, {
+    method: 'PUT',
+    body: JSON.stringify(input),
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer token',
+    },
+  })
+
+export const patch = async (url: string, input: Record<string, string>) =>
+  fetch(url, {
+    method: 'PATCH',
+    body: JSON.stringify(input),
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer token',
+    },
+  })
+
+export const del = async (url: string, input: Record<string, string>) =>
+  fetch(url, {
+    method: 'DELETE',
+    body: JSON.stringify(input),
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer token',
+    },
   })
 
 type CreateAPIMethod = <TInput extends Record<string, string>, TOutput>(opts: {
   url: string
-  method: 'GET' | 'POST'
+  method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'
 }) => (input: TInput) => Promise<TOutput>
 
 const createAPIMethod: CreateAPIMethod = (opts) => (input) => {
-  const method = opts.method === 'GET' ? get : post
+  const method = methods[opts.method]
 
   return (
     method(opts.url, input)
@@ -21,6 +55,14 @@ const createAPIMethod: CreateAPIMethod = (opts) => (input) => {
       .then((res) => res.json())
   )
 }
+
+const methods = {
+  GET: get,
+  POST: post,
+  PUT: put,
+  PATCH: patch,
+  DELETE: del,
+} as const
 
 /**
  * You can reuse this function as many times as you
