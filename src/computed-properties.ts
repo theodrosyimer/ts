@@ -2,9 +2,11 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 console.log('hello from computed-properties.ts')
 
-const ctx = 'GLOBAL'
+const kContextIsGlobal = Symbol('ctx')
 class DataStrucutre<T> {
   #data = new Map<any, T>()
+
+  #isGlobal = false
 
   _tag = ''
 
@@ -22,8 +24,8 @@ class DataStrucutre<T> {
     return this.#data.get(key)
   }
 
-  get [ctx]() {
-    return `${ctx}$_${this._tag}_CONTEXT`
+  [kContextIsGlobal]() {
+    return this.#isGlobal
   }
 
   get size() {
@@ -52,4 +54,4 @@ struct.size // ?
 struct.get('yoo2') // ?
 
 struct.log()
-struct.GLOBAL // ?
+struct // ?
