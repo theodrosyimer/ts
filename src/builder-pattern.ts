@@ -89,3 +89,5 @@ const newPkg = createGenerator('new-pkg')
   .ensureDir((opts) => `./${opts.PackageDir}/${opts.name}`)
   .cd((opts) => `./${opts.PackageDir}/${opts.name}`)
   .createFile('package.json')
+
+console.log(newPkg)
