@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 class IncreasingCounter {
   // private field
   #count = 0
@@ -32,26 +33,34 @@ console.log(counter.increment()) // ?
 // Accessing the new value of `counter.value` after incrementing it
 console.log(counter.value) // ?
 
-///////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////
 
 class Person {
   #firstName
+
   #lastName
+
+  /**
+   * @param {string} firstName - The person's first name
+   * @param {string} lastName - The person's last name
+   */
   constructor(firstName, lastName) {
     this.#firstName = firstName
     this.#lastName = lastName
   }
-  getFullName(format = true) {
-    return format ? this.#firstLast() : this.#lastFirst()
+
+  getFullName(reverse = false) {
+    return reverse ? this.#lastFirst() : this.#firstLast()
   }
 
   #firstLast() {
     return `${this.#firstName} ${this.#lastName}`
   }
+
   #lastFirst() {
     return `${this.#lastName}, ${this.#firstName}`
   }
 }
 
-let person = new Person('John', 'Doe')
+const person = new Person('John', 'Doe')
 console.log(person.getFullName())
