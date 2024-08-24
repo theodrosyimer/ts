@@ -1,19 +1,20 @@
 /* eslint-disable no-empty-pattern */
-type WhereOptions = {
+type Methods = {
   eq: (value: number) => boolean
 }
 
-function wrap() {
+function queryBuilder() {
+  const methods: Methods = {}
   const id = 1
   function eq(value: number) {
     return id === value
   }
 
   return {
-    where(cb: (opts: WhereOptions) => void) {
-      return cb(opts)
+    where(cb: (methods: Methods) => void) {
+      return cb(methods)
     },
   }
 }
 
-wrap().where(({}) => ({}))
+queryBuilder().where(({}) => ({}))
