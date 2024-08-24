@@ -1,14 +1,19 @@
+/* eslint-disable no-empty-pattern */
+type WhereOptions = {
+  eq: (value: number) => boolean
+}
+
 function wrap() {
-  let id = 1;
+  const id = 1
   function eq(value: number) {
-    return this.id === value;
+    return id === value
   }
 
   return {
-    where: function (cb) {
-      return cb({ eq });
+    where(cb: (opts: WhereOptions) => void) {
+      return cb(opts)
     },
-  };
+  }
 }
 
-wrap().where(({}) => ({}));
+wrap().where(({}) => ({}))
