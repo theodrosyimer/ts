@@ -1,162 +1,146 @@
 /* eslint-disable max-classes-per-file */
 
-import { getCallerLocation } from './error-get-caller-location.js'
+import { getCallerLocation } from './error-get-caller-location.ts'
 
 // stack trace API: [Stack trace API · V8](https://v8.dev/docs/stack-trace-api)
 
-export class ValidationError2 extends Error {
-  #errors: Record<string, string | undefined>
+type AnyError<T = Error> = T extends Error ? T : never
 
-  constructor(errors: Record<string, string | undefined>) {
-    super('An error occured while validating this User entity')
-    // Set the prototype explicitly only needed if i need to support:
-    //  - node < 6
-    //  - IE < 11
-    //  - ES < 2015
-    Object.setPrototypeOf(this, new.target.prototype)
+abstract class MyErrorAbstract extends Error {
+  handleOrigin: string | undefined
 
-    this.name = 'ValidationError2'
-    this.#errors = errors
+  constructor(
+    name: string,
+    message: string,
+    opts: {
+      cause: AnyError
+    },
+  ) {
+    super(message, opts)
+    this.name = name
 
     // ! don't need it?
     // i can pass a function to captureStackTrace to filter out the stack trace
-    Error.captureStackTrace(this)
+    Error.captureStackTrace(this, MyErrorAbstract)
+    this.handleOrigin = this.getHandleOrigin.call(this)
   }
 
-  log() {
-    return this.#errors
-  }
+  // static isInstance(err: unknown): err is MyErrorAbstract {
+  //   // eslint-disable-next-line eqeqeq
+  //   if (err == null || typeof err !== 'object') {
+  //     return false
+  //   }
 
-  static isInstance(err: unknown): err is ValidationError2 {
-    // eslint-disable-next-line eqeqeq
-    if (err == null || typeof err !== 'object') {
-      return false
+  //   return err instanceof MyErrorAbstract
+  // }
+
+  getHandleOrigin() {
+    const stackLines = this.stack?.split('\n')
+
+    if (!stackLines?.length) {
+      return 'Unknown Location'
     }
 
-    return err instanceof ValidationError2
+    // console.log('[this.name]:', this.name)
+    // console.log(`[${this.name} stackLines]:`, stackLines)
+    // Assuming the call location is on the third line of the stack
+    if (stackLines.length >= 4) {
+      return stackLines[2]?.trim()
+    }
+
+    return stackLines[0]?.trim()
   }
 }
 
-function f1() {
+class DbServiceError extends MyErrorAbstract {
+  // handleOrigin: string | undefined
+
+  constructor(
+    message: string,
+    opts: {
+      cause: AnyError
+    },
+  ) {
+    super('DbServiceError', message, opts)
+
+    // ! don't need it?
+    // i can pass a function to captureStackTrace to filter out the stack trace
+    Error.captureStackTrace(this, DbServiceError)
+    this.handleOrigin = this.getHandleOrigin.call(this)
+  }
+}
+
+class DbConnectionError extends MyErrorAbstract {
+  // handleOrigin: string | undefined
+
+  constructor(
+    message: string,
+    opts: {
+      cause: AnyError
+    },
+  ) {
+    super('DbConnectionError', message, opts)
+
+    // ! don't need it?
+    // i can pass a function to captureStackTrace to filter out the stack trace
+    Error.captureStackTrace(this, DbConnectionError)
+    this.handleOrigin = this.getHandleOrigin()
+  }
+}
+
+class NotMyError extends Error {
+  constructor(
+    message: string,
+    opts?: {
+      cause: AnyError
+    },
+  ) {
+    super(message, opts)
+
+    // ! don't need it?
+    // i can pass a function to captureStackTrace to filter out the stack trace
+    Error.captureStackTrace(this, NotMyError)
+  }
+}
+
+function dbService() {
   try {
-    return f2()
+    console.log('executing dbService that catches dbClient error...')
+    dbClient()
   } catch (error) {
-    if (ValidationError2.isInstance(error)) {
-      console.log(error.log())
-      // console.log(error.name)
-      // console.log(error.message)
-      // console.log(error.stack)
-
-      throw new ValidationError2({ message: 'This is an error in f1' })
+    if (error instanceof DbConnectionError) {
+      throw new DbServiceError(`dbClient: ${error.message}`, {
+        cause: error,
+      })
     }
   }
 }
-function f2() {
+
+function dbClient() {
   try {
-    return f3()
+    console.log('executing dbClient that throws...')
+    // simulate an error to see the stack trace
+    throw new NotMyError('The database server is down!')
   } catch (error) {
-    if (ValidationError2.isInstance(error)) {
-      console.log(error.log())
-      // console.log(error.name)
-      // console.log(error.message)
-      console.log(error.stack)
-
-      throw new ValidationError2({ message: 'This is an error in f2' })
+    if (error instanceof NotMyError) {
+      throw new DbConnectionError(
+        `Database connection failed: ${error.message}`,
+        {
+          cause: error,
+        },
+      )
     }
   }
 }
-function f3() {
-  throw new ValidationError2({ message: `This is an error in f3` })
-}
+
+// console.log(`\n${'-'.repeat(80)}\n`)
+// console.log('Example 3:\n')
 
 try {
-  f1()
-} catch (error) {
-  // console.log(error.log())
-  // console.log(error.stack)
-}
-
-console.log(`\n${'-'.repeat(80)}\n`)
-// /////////////////////////////////////////////////////
-
-// source: [node.js - Understanding Error.captureStackTrace and stack trace persistance? - Stack Overflow](https://stackoverflow.com/questions/59625425/understanding-error-capturestacktrace-and-stack-trace-persistance)
-
-function fun1() {
-  fun2()
-}
-function fun2() {
-  fun3()
-}
-function fun3() {
-  logStack()
-}
-function logStack() {
-  const err = new Error()
-  Error.captureStackTrace(err)
-  console.log('ERROR_STACK:')
-  console.log(err.stack)
-  console.log()
-  console.log('ERROR_LOCATION:')
-  console.log(getCallerLocation())
-}
-
-fun1()
-
-console.log(`\n${'-'.repeat(80)}\n`)
-
-class MyError1 extends Error {
-  constructor(message: string) {
-    super(message)
-
-    // ! don't need it?
-    // i can pass a function to captureStackTrace to filter out the stack trace
-    Error.captureStackTrace(this)
+  dbService()
+} catch (err) {
+  if (err instanceof DbServiceError) {
+    console.error()
+    console.error(err)
   }
 }
-
-class MyError2 extends Error {
-  constructor(message: string) {
-    super(message)
-
-    // ! don't need it?
-    // i can pass a function to captureStackTrace to filter out the stack trace
-    Error.captureStackTrace(this, MyError2)
-  }
-
-  static isInstance(err: unknown): err is MyError2 {
-    // eslint-disable-next-line eqeqeq
-    if (err == null || typeof err !== 'object') {
-      return false
-    }
-
-    return err instanceof MyError2
-  }
-}
-
-function Do1() {
-  try {
-    console.log('executing do 1')
-    Do2()
-  } catch (error) {
-    if (error instanceof Error) {
-      console.log('error in Do1', error)
-      console.log('here is the stack ', error.stack)
-      throw new MyError1('threw error from do1 in myerror1')
-      // throw error;}
-    }
-  }
-}
-
-function Do2() {
-  try {
-    console.log('executing do 2')
-    throw new MyError2('threw error from do2 in myerror2')
-  } catch (error) {
-    if (error instanceof Error) {
-      console.log('error in Do2', error)
-      throw error
-    }
-  }
-}
-
-Do1()
