@@ -5,7 +5,7 @@ export function getCallerLocation() {
 
   const stackLines = error.stack?.split('\n')
 
-  if (!stackLines) {
+  if (!stackLines?.length) {
     return 'Unknown Location'
   }
 
