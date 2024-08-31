@@ -106,7 +106,7 @@ console.log('  ', ok, error)
 const { success: ok2, error: err } = Failure('This is another error')
 console.log('  ', ok2, err)
 
-// can't type the returned value from the iterator as a tuple `[TError, undefined]`
+// ! can't type the returned value from the iterator as a tuple `[TError, undefined]`
 const [error2, value2] = Failure('This is another error')
 console.log('  ', error2, value2)
 
