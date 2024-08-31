@@ -53,8 +53,6 @@ abstract class MyErrorAbstract extends Error {
 }
 
 class DbServiceError extends MyErrorAbstract {
-  // handleOrigin: string | undefined
-
   constructor(
     message: string,
     opts: {
