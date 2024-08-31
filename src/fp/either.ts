@@ -1,4 +1,4 @@
-import { fail } from '../promises.js'
+import { fail } from '../utils.ts'
 import { maybeNullishOr } from '../randomizer.js'
 
 class Either {
