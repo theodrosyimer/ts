@@ -1,6 +1,6 @@
 import { strict as assert } from 'node:assert'
 
-import { getTypeName } from './getTypeName.js'
+import { getTypeName } from './conditional-types/getTypeName.ts'
 
 const sanitizeString = (text: string) =>
   text

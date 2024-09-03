@@ -25,3 +25,11 @@ const resolveShape2 = <T extends Shape>(_shape: Shape2): (typeof shapes2)[T] =>
   ({}) as any
 
 const something = resolveShape2('square') // auto-completes to "circle" and "square"
+
+// /////////////////////////////////////////////////////////////////////
+
+// using arrays mapped type syntax
+export const shapes3 = {
+  circle: ['x', 'y', 'rx'],
+  square: ['x', 'y', 'height', 'width'],
+} as const

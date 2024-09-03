@@ -2,7 +2,7 @@ type Separator = ' ' | '\t' | '\n' | '-'
 
 const newArrayFromCounterWithMapFn = (
   count: number,
-  fn: (element: undefined) => Separator
+  fn: (element: undefined) => Separator,
 ): Separator[] => [...Array<undefined>(count)].map(fn)
 
 // eslint-disable-next-line

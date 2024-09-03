@@ -1,4 +1,4 @@
-import { type KeysOf } from './utility-types.js'
+import { type KeysOf } from '../utility-types.ts'
 
 const Log = {
   reset: '\x1b[0m',

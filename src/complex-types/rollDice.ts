@@ -1,4 +1,4 @@
-import { randomMinMax } from './randomizer.js'
+import { randomMinMax } from '../randomizer.ts'
 
 type _Range<T extends number, R extends unknown[]> = R['length'] extends T
   ? R[number]

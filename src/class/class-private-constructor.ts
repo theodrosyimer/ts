@@ -20,5 +20,7 @@ class PrivateConstructor {
   }
 }
 
-new PrivateConstructor() // TypeError: PrivateConstructor is not constructable
-PrivateConstructor.create() // PrivateConstructor {}
+// TypeError: PrivateConstructor is not constructable
+const o = new PrivateConstructor()
+
+const o2 = PrivateConstructor.create() // PrivateConstructor {}

@@ -30,7 +30,7 @@ const myObject = {
   myFunction() {
     console.log(this === myObject)
     console.log(this === global)
-  }
+  },
 }
 
 myObject.myFunction()

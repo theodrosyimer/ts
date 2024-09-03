@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 /**
  * @link https://www.typescriptlang.org/docs/handbook/2/classes.html#initialization-order
  *
@@ -17,15 +18,11 @@ The order that JavaScript classes initialize can be surprising in some cases. Le
 
     }
 
-
-
     class Derived extends Base {
 
       name = "derived";
 
     }
-
-
 
     // Prints "base", not "derived"
 

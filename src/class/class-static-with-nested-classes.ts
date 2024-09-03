@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 // the idea comes from `c#` classes nested in a static class, it is used to group classes that are only used in one place (Command and Handler nested in a class `PlaceOrder` located at `features/PlaceOrder.ts`), and to avoid polluting the global namespace and have class names with suffixes like `PlaceOrderCommand` and `PlaceOrderHandler`.
 
 // But there is multiple gotchas with this approach:

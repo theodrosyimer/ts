@@ -42,6 +42,8 @@ p2() // ?
 
 // ES6 syntax version
 class Human1 {
+  gender: string
+
   constructor() {
     this.gender = 'male'
   }
@@ -51,7 +53,10 @@ class Human1 {
     return this.gender
   }
 }
+
 class Person1 extends Human1 {
+  name: string
+
   constructor() {
     super()
     this.name = 'Max'

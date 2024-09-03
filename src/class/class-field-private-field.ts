@@ -44,7 +44,7 @@ class Person {
    * @param {string} firstName - The person's first name
    * @param {string} lastName - The person's last name
    */
-  constructor(firstName, lastName) {
+  constructor(firstName: string, lastName: string) {
     this.#firstName = firstName
     this.#lastName = lastName
   }

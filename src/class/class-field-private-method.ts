@@ -7,11 +7,14 @@
 
 class Person {
   #firstName
+
   #lastName
-  constructor(firstName, lastName) {
+
+  constructor(firstName: string, lastName: string) {
     this.#firstName = firstName
     this.#lastName = lastName
   }
+
   getFullName(format = true) {
     return format ? this.#firstLast() : this.#lastFirst()
   }
@@ -19,10 +22,11 @@ class Person {
   #firstLast() {
     return `${this.#firstName} ${this.#lastName}`
   }
+
   #lastFirst() {
     return `${this.#lastName}, ${this.#firstName}`
   }
 }
 
-let person = new Person('John', 'Doe')
+const person = new Person('John', 'Doe')
 console.log(person.getFullName())
