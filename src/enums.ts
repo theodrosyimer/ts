@@ -29,7 +29,6 @@ const something = resolveShape2('square') // auto-completes to "circle" and "squ
 // /////////////////////////////////////////////////////////////////////
 
 // using arrays mapped type syntax
-export const shapes3 = {
-  circle: ['x', 'y', 'rx'],
-  square: ['x', 'y', 'height', 'width'],
-} as const
+export const userRoles = ['user', 'admin', 'superadmin'] as const
+
+type UserRole = (typeof userRoles)[number]
