@@ -16,7 +16,6 @@ export class ValidationError2 extends Error {
     // this.name = 'ValidationError2'
     this.#errors = errors
 
-    // ! don't need it?
     // i can pass a function to captureStackTrace to filter out the stack trace
     Error.captureStackTrace(this)
   }

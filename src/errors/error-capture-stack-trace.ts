@@ -19,7 +19,6 @@ abstract class MyErrorAbstract extends Error {
     super(message, opts)
     this.name = name
 
-    // ! don't need it?
     // i can pass a function to captureStackTrace to filter out the stack trace
     Error.captureStackTrace(this, MyErrorAbstract)
     this.handleOrigin = this.getHandleOrigin.call(this)
@@ -61,7 +60,6 @@ class DbServiceError extends MyErrorAbstract {
   ) {
     super('DbServiceError', message, opts)
 
-    // ! don't need it?
     // i can pass a function to captureStackTrace to filter out the stack trace
     Error.captureStackTrace(this, DbServiceError)
     this.handleOrigin = this.getHandleOrigin.call(this)
@@ -79,7 +77,6 @@ class DbConnectionError extends MyErrorAbstract {
   ) {
     super('DbConnectionError', message, opts)
 
-    // ! don't need it?
     // i can pass a function to captureStackTrace to filter out the stack trace
     Error.captureStackTrace(this, DbConnectionError)
     this.handleOrigin = this.getHandleOrigin()
@@ -95,7 +92,6 @@ class NotMyError extends Error {
   ) {
     super(message, opts)
 
-    // ! don't need it?
     // i can pass a function to captureStackTrace to filter out the stack trace
     Error.captureStackTrace(this, NotMyError)
   }

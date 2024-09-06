@@ -9,7 +9,6 @@ class ValidationError extends Error {
     //  - ES < 2015
     Object.setPrototypeOf(this, new.target.prototype)
 
-    // ! don't need it?
     Error.captureStackTrace(this)
   }
 
