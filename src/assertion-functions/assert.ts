@@ -1,21 +1,24 @@
 // Using assertions functions, nice to remove the lying type assertions
-function assert(condition: boolean, message: string): asserts condition {
-  if (!condition) {
-    throw new Error(message)
-  }
+function assertBasic(
+  condition: boolean | (() => boolean),
+  message: string,
+): asserts condition {
+  if (!condition) throw new Error(message)
 }
 
-function assert2(
-  condition: boolean,
+function assert<T>(
+  condition: T,
   message?: string | (() => string),
 ): asserts condition {
-  if (condition) {
-    return
-  }
-  const givenMessage: string | undefined =
-    typeof message === 'function' ? message() : message
+  if (condition != null) return
 
-  throw new Error(givenMessage)
+  const givenMessage = typeof message === 'function' ? message() : message
+  const prefix = 'Assertion failed'
+  const formattedMessage = givenMessage
+    ? `${prefix}: ${givenMessage}`
+    : `${prefix}: ${condition}`
+
+  throw new Error(formattedMessage)
 }
 
 const a = 2
@@ -23,7 +26,8 @@ const x = 1 * a
 const y = 2 * a
 
 try {
-  assert(x < y, 'You are a fool!')
+  assertBasic(() => x < y, 'You are a fool!')
+  assertBasic(x + 1 > y, 'You are a fool again!')
 } catch (error) {
   if (error instanceof Error) {
     console.log(error.message)
