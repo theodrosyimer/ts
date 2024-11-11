@@ -4,8 +4,8 @@
 
 // type EmailAddress = string & { __brand: 'EmailAddress' }
 // or using an utility type
-type Brandedtype<T, K> = T & { __brand: K }
-type EmailAddress = Brandedtype<string, 'EmailAddress'>
+type BrandedType<T, K> = T & { __brand: K }
+type EmailAddress = BrandedType<string, 'EmailAddress'>
 
 // function used to cast from a type to a brandedType
 function isEmailAddress(email: string): email is EmailAddress {
