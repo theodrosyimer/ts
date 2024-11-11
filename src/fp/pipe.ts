@@ -8,6 +8,15 @@ const pipe =
   (param: unknown) =>
     fns.reduce((result, fn) => fn(result), param)
 
+function pipe2<T extends (...args: any) => unknown>(...fns: T[]) {
+  return (result: unknown) => {
+    for (const fn of fns) {
+      result = fn(result)
+    }
+    return result
+  }
+}
+
 // Handle asynchronous AND synchronous functions
 const pipeP =
   <T extends (...args: any) => unknown>(...fns: T[]) =>
@@ -22,14 +31,6 @@ const compose =
 
 function compose2<T extends (...args: any) => unknown>(...fns: T[]) {
   return pipe(...fns.reverse())
-}
-function pipe2<T extends (...args: any) => unknown>(...fns: T[]) {
-  return (result: unknown) => {
-    for (const fn of fns) {
-      result = fn(result)
-    }
-    return result
-  }
 }
 
 export {}
