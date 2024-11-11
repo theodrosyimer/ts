@@ -10,7 +10,7 @@ function printOutProperties<T extends Record<any, unknown>>(
       toPrint.push(p)
     }
   }
-  console.log(toPrint)
+  console.table(toPrint)
   return toPrint
 }
 
