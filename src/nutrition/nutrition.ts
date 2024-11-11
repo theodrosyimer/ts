@@ -109,8 +109,8 @@ export const getCaloriesToMuscleGrowthFromImperialInput =
 
 // ///////////////////////////////////////
 
-getCaloriesToMaintainBodyweightFromMetricInput(69) /*?*/
+getCaloriesToMaintainBodyweightFromMetricInput(73) /*?*/
 
-getProteinIntakePerBodyweightFromMetricInput(69) /*?*/
+getProteinIntakePerBodyweightFromMetricInput(73) /*?*/
 
-getCaloriesToMuscleGrowthFromMetricInput(69) /*?*/
+getCaloriesToMuscleGrowthFromMetricInput(73) /*?*/
