@@ -17,16 +17,16 @@ type LastFnReturnType<F extends Array<AnyFunc>, Else = never> = F extends [
   ? R
   : Else
 
-export function pipe3<F extends AnyFunc[]>(
+export function pipeline<F extends AnyFunc[]>(
   arg: Parameters<F[0]>[0],
   ...fns: PipeArgs<F> extends F ? F : PipeArgs<F>
 ): LastFnReturnType<F, ReturnType<F[0]>> {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-  return fns.slice(1).reduce((acc, fn) => fn(acc), fns[0](arg))
+  return fns.slice(1).reduce((acc, fn) => fn(acc), fns[0]!(arg))
 }
 
-pipe(
+pipeline(
   42,
-  (x: number) => x.toString(),
+  (x: number) => x + 1,
   (x: number) => x + 2,
 )
