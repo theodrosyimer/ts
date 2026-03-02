@@ -2,7 +2,7 @@ import { fail } from '../utils.ts'
 import { maybeNullishOr } from '../randomizer.js'
 
 class Either {
-  Right<T>(x: T) {
+  static Right<T>(x: T) {
     return {
       chain: <U>(f: (x: T) => U) => f(x),
       map: <U>(f: (x: T) => U) => this.Right(f(x)),
@@ -11,7 +11,7 @@ class Either {
     }
   }
 
-  Left<T>(x: T) {
+  static Left<T>(x: T) {
     return {
       chain: <U>(_f: (x: T) => U) => this.Left(x),
       map: <U>(f: (x: T) => U) => this.Left(f(x)),
