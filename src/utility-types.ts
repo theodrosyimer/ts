@@ -73,3 +73,9 @@ type Setters<Type> = {
 }
 
 export type CreateObjectAccessors<T> = Unwrap<Getters<T> & Setters<T>>
+
+type DeepWritablePartial<T> = {
+  -readonly [Key in keyof T]+?: T[Key] extends object
+    ? DeepWritablePartial<T[Key]>
+    : T[Key]
+}
