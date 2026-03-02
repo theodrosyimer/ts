@@ -11,7 +11,7 @@ export function isArray(value: any) {
 }
 
 export function isObject(value: any) {
-  return value !== null && !Array.isArray(value) && typeof value === 'object'
+  return typeof value === 'object' && value !== null && !Array.isArray(value)
 }
 
 export function isFunction(value: any) {
