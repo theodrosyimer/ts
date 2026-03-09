@@ -7,18 +7,21 @@ export type BrandedType<T, K> = T & { __brand: K }
 const p = () => new Promise((res) => setTimeout(() => res('hello'), 1000))
 const p2 = new Promise((res) => res('hello'))
 
-type GetPromiseReturnType<T extends (...args: any) => Promise<unknown>> =
+export type GetPromiseReturnType<T extends (...args: any) => Promise<unknown>> =
   Awaited<ReturnType<T>>
 type Result1 = GetPromiseReturnType<typeof p>
 
-type MyAwaited<T extends Promise<unknown>> = T extends Promise<infer V>
-  ? V extends Promise<unknown>
-    ? MyAwaited<V>
-    : V
-  : never
+export type MyAwaited<T extends Promise<unknown>> =
+  T extends Promise<infer V>
+    ? V extends Promise<unknown>
+      ? MyAwaited<V>
+      : V
+    : never
 type Result3 = MyAwaited<typeof p2>
 
-type IsPromise<T> = T extends (...args: any) => Promise<any> ? true : false
+export type IsPromise<T> = T extends (...args: any) => Promise<any>
+  ? true
+  : false
 type Result2 = IsPromise<typeof p>
 export function invariant(condition: any, message: string): asserts condition {
   if (!condition) throw new Error(message)
@@ -55,18 +58,18 @@ export type UnionFromArray<T extends Array<any>> = T[number]
 
 let a: UnionFromArray<[1, 2, 3]>
 
-type ObjectValuesAsUnion<T> = {
+export type ObjectValuesAsUnion<T> = {
   [key in keyof T]: T[keyof T]
 }[keyof T]
 type Test = ObjectValuesAsUnion<typeof obj>
 
-type Getters<Type> = {
+export type Getters<Type> = {
   [Property in keyof Type as `get${Capitalize<
     string & Property
   >}`]: () => Type[Property]
 }
 
-type Setters<Type> = {
+export type Setters<Type> = {
   [Property in keyof Type as `set${Capitalize<
     string & Property
   >}`]: () => Type[Property]
@@ -74,8 +77,10 @@ type Setters<Type> = {
 
 export type CreateObjectAccessors<T> = Unwrap<Getters<T> & Setters<T>>
 
-type DeepWritablePartial<T> = {
+export type DeepWritablePartial<T> = {
   -readonly [Key in keyof T]+?: T[Key] extends object
     ? DeepWritablePartial<T[Key]>
     : T[Key]
 }
+
+export type NonEmptyArray<T> = [T, ...T[]]
